@@ -13,9 +13,9 @@
     function goList(){ // javascript, jQuery
         // 서버와 직접 통신
         $.ajax({
-              url : "/shopping/ajaxList.do", // pojo
+              url : "/toy2/ajaxList", // pojo
               type : "get",
-              dataType : "json",
+              dataType : "json", // JSON Object
               success : bookList,
               error : function(){  alert("error");  }
            });
@@ -57,7 +57,7 @@
     }
     function goDel(num){
           // 삭제요청, URL돌려서요청, ajax요청
-         location.href="/shopping/delete.do?num="+num; // GET방식 요청
+         location.href="/toy2/delete/"+num; // GET방식 요청
     }
 </script>
 </head>
@@ -105,18 +105,18 @@
                       <c:forEach var="book" items="${list}">
                               <tr>
                                 <td>${book.num}</td>
-                                <td>${book.title}</td>
+                                <td><a href="/toy2/view/${book.num}">${book.title}</a></td>
                                 <td>${book.price}</td>
                                  <td>${book.name}</td>
                                  <td>${book.page}</td>
-                                 <c:if test="${!empty uservo}">
+
                                   <td><button type="button" class="btn btn-sm btn-danger" onclick="goDel(${book.num})">삭제</button></td>
-                                 </c:if>
+
                              </tr>
                        </c:forEach>
                      </tbody>
                 </table>
-                <button class="btn btn-secondary btn-sm" onclick="location.href='/shopping/register.do'">책 등록</button>
+                <button class="btn btn-secondary btn-sm" onclick="location.href='/toy2/register'">책 등록</button>
                 <button class="btn btn-secondary btn-sm" onclick="goList()">BookList</button>
             </div>
             <div id="list" class="container" style="display:none">
