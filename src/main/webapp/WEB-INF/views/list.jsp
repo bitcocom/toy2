@@ -10,19 +10,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script>
-    function goList(){ // javascript, jQuery
+   async function goList(){ // javascript, jQuery
         // 서버와 직접 통신
-        $.ajax({
+       /* $.ajax({
               url : "/toy2/ajaxList", // pojo
               type : "get",
               dataType : "json", // JSON Object
               success : bookList,
               error : function(){  alert("error");  }
-           });
+           }); */
+           const res1=await fetch("/toy2/ajaxList",{method : "GET"})
+           .then((response) => response.json())
+           .then((json)=>bookList(json));
     }
     function bookList(data){
          //alert(data); // JSON Array
          console.log(data);
+        data.forEach(function(obj) {
+            console.log(obj.title);
+        });
          // 동적인 뷰를 만들어준다~~~
          var result="<table class='table table-bordered table-hover'>";
              result+="<thead>";
